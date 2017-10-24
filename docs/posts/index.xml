@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Dhananjay Karkera&#39;s Blog</title>
+    <link>https://dhananjay-karkera-spider.github.io/blogs/posts/</link>
+    <description>Recent content in Posts on Dhananjay Karkera&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 23 Oct 2017 14:30:53 +0530</lastBuildDate>
+    
+	<atom:link href="https://dhananjay-karkera-spider.github.io/blogs/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Azure Functions - Getting Started</title>
+      <link>https://dhananjay-karkera-spider.github.io/blogs/posts/azure-functions/</link>
+      <pubDate>Mon, 23 Oct 2017 14:30:53 +0530</pubDate>
+      
+      <guid>https://dhananjay-karkera-spider.github.io/blogs/posts/azure-functions/</guid>
+      <description>This article covers my experience with Azure Functions. Azure Functions is Microsoft&amp;rsquo;s PaaS offering in the relative new serverless application space and has been in the spotlight for quite some time now.
+Applications development has seen an evolution in the last few years. Monolithic applications have given way to smaller autonomous services - services that are responsible for their own data, are easier to manage and with their own deployment cycle.</description>
+    </item>
+    
+  </channel>
+</rss>

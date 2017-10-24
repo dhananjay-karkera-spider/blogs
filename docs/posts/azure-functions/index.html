@@ -1,0 +1,184 @@
+<body>
+  <!DOCTYPE html>
+<html lang="en-us">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta content="" name="keywords">
+<meta content="Azure Functions - Getting Started - Dhananjay Karkera&#39;s Blog" property="og:title">
+<title>Azure Functions - Getting Started | Dhananjay Karkera&#39;s Blog</title>
+<link rel="stylesheet" href="https://dhananjay-karkera-spider.github.io/blogs//css/style.css">
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css" integrity="sha256-Zd1icfZ72UBmsId/mUcagrmN7IN5Qkrvh75ICHIQVTk=" crossorigin="anonymous" />
+
+
+  <section class="section">
+  <div class="container">
+    <nav class="nav">
+      <div class="nav-left">
+        <a class="nav-item" href="https://dhananjay-karkera-spider.github.io/blogs//"><h1 class="title is-4">Dhananjay Karkera&#39;s Blog</h1></a>
+      </div>
+      <div class="nav-right">
+        <nav class="nav-item level is-mobile">
+          
+        </nav>
+      </div>
+    </nav>
+  </div>
+</section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="subtitle is-6">October 23, 2017</h2>
+      <h1 class="title">Azure Functions - Getting Started</h1>
+      
+      <div class="content">
+        <p>This article covers my experience with Azure Functions. Azure Functions is Microsoft&rsquo;s PaaS offering in the relative new <strong><em>serverless</em></strong> application space and has been in the spotlight for quite some time now.</p>
+
+<p>Applications development has seen an evolution in the last few years. Monolithic applications have given way to smaller autonomous services - services that are responsible for their own data, are easier to manage and with their own deployment cycle. These services as now known to us as <strong>Microservices</strong>. For example, in case of a pizza delivery application the order delivery, purchase and employee services are candidates to move to their own microservice.</p>
+
+<p>Microsoft Azure has multiple options for microservices on the cloud. You could choose the IaaS path - where you have more control over the setup of your VM or go with PaaS - in which case the infrastructure is managed for you and you focus more on your application.</p>
+
+<p>Today the communication medium or messaging channels are not just limited to email, SMS or chat. Each channel brings its own set of operations and events. For example one can push calendar notifications, send tweets, upload files onto OneDrive. Consequently there a need to <strong><em>action</em></strong> these events.</p>
+
+<p>The traditional microservices approach is a big win for development and it suitable for most applications where the focus is mostly on CRUD operations. But when it comes to an <strong>event driven</strong> environment then you need to turn to Azure functions.</p>
+
+<p>Azure Functions comes with an added benefit - you have an option to pay only when your service is called. In case of a VM or App Service you need to block resources upfront and you end up paying even for idle time. As you don&rsquo;t need to provision resources upfront this had lead to the new term being coined <strong><em>serverless</em></strong>.</p>
+
+<p>How does it work? Azure Functions are build on top of Azure Web Jobs framework - which is used to execute background tasks on Azure. You need to define what <strong>triggers</strong> your function which in turn will start a Azure Web job to execute your code.</p>
+
+<p><strong>Single Page Demo Application</strong></p>
+
+<p>To get a hands on experience with Azure Functions I created a single page web application, The Avid Reader App. Its composed of two sections:</p>
+
+<ol>
+<li>A reading section to display the content.</li>
+<li>A dictionary section to displays dictionary results for words selected from the reading section.
+<br /></li>
+</ol>
+
+
+<figure >
+    
+        <img src="../../images/TheAvidReader.png" />
+    
+    
+    <figcaption>
+        <h4>http://theavidreader.azurewebsites.net/</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<p>Whenever a user double clicks on a word the handler invokes the DictionaryApi which is entrusted with a very specific task - fetch the meaning of a word.</p>
+
+<p>In this case there is only a single Azure function to service the UI. But one can further enhance it by adding new functions. Listing down a few
+1. Fetch list of most popular books from internet archives site to populate a drop down on the UI
+2. Fetch file content for a book to populate reading pane
+3. Export the list of words with meanings to an OneNote Notebook in the cloud</p>
+
+<p>Note that the DictionaryApi, OneNoteApi and StoryApi REST APIs are Azure Functions invoked by a HttpTrigger. Each service may have a different authentication scheme.</p>
+
+<p><strong>Azure Function Features</strong>
+ Listed below are key features when working with Azure Functions.</p>
+
+<ol>
+<li><p><strong><em>Trigger based</em></strong>
+Azure Function has multiple trigger types that faciliate integration with applications. One could use HttpTrigger to handle Http (GET/POST) requests or BlobTrigger to handle a new file added to blob storage or queue. There is also a timer based trigger to run scheduled tasks. In my case I have used the HttpTrigger.</p></li>
+
+<li><p><strong><em>Nuget package integration</em></strong>
+Full support for third party libraries from nuget is available. You need to create a project.json file and mention the library and version. Nuget Package manager will manage the depedencies during compile time.</p></li>
+
+<li><p><strong><em>Reference dlls</em></strong>
+In case there is an oppurtunity for code reuse among multiple Azure functions you can reference assemblies in your project bin folder.</p></li>
+
+<li><p><strong><em>Swagger</em></strong>
+You can generate the Swagger json file from the Azure portal for an Azure function. This captures the Request and Response schemas and service details which can be used by tools and clients to generate boilerplate code. For those familiar with wsdl and xsd Swagger is the json equivalent for REST Api schema definition.</p></li>
+
+<li><p><strong><em>Cost effective - consumption plan</em></strong>
+You might choose to go with Consumption plan where you are billed per call or go with a dedicated service plan.</p></li>
+
+<li><p><strong><em>Scalable</em></strong>
+The Azure function runtime can auto scale up and down to handle the request load.</p></li>
+
+<li><p><strong><em>Multiple language support</em></strong>
+There is support to develop in multiple languages (C#, Javascript).</p></li>
+
+<li><p><strong><em>Tooling</em></strong>
+You can generate the function template for each trigger directly on the Azure Portal. VS 2017 also has added templates for Azure Function App. You might want to consider azure-functions-core-tools (npm) for command line interface. VS Code also has extensions for Azure functions. I choose the azure function cli with VS Code for ease for use. As the Azure function runtime is installed locally you can also debug your functions.</p></li>
+
+<li><p><strong><em>Security</em></strong>
+Depending on your usage you might choose the security model to be anonymous or OAuth integration for Http Trigger based functions</p></li>
+
+<li><p><strong><em>Continous Integration</em></strong>
+Each function can be developed, tested and deployed separately.  I have used publish from the azure cli tool - other options are GitHub, BitBucket, VSTS, OneDrive. You can publish directly from VS 2017, or ftp.</p></li>
+
+<li><p><strong><em>.NET Core 2.0 support</em></strong>
+Till recently Azure functions required .NET Framework 4.6 but recently MS has announced that you can now develop using .NET Core 2.0, though still in preview. I used .NET Core 2.0 with the instructions provided on the site and it worked.</p></li>
+
+<li><p><strong><em>Precompile the code</em></strong>
+Precompile the code will benefit the function startup time during first time invocation.</p></li>
+</ol>
+
+<p><strong>Azure Functions in a workflow</strong></p>
+
+<p>Lets consider another use case - an Expense Reimbursement Application. A typical reimbursement workflow would have the  following stages:</p>
+
+<ol>
+<li>Request Submitted</li>
+<li>Request is Validated</li>
+<li>Request is Reviewed</li>
+<li>Amount Reimbursed, Request closed</li>
+</ol>
+
+<p>At every stage in the workflow</p>
+
+<ul>
+<li>The status of the request is changed (Received, Validated, Reviewed, Closed)<br /></li>
+<li>A different user role works on the request (User, Reviewer, Accountant)</li>
+<li>Application sends status change notifications to concerned parties for appropriate actions.
+<br /></li>
+</ul>
+
+<p>On an average this application will be used only once per month by a user to submit a request. In that case an Azure function running on a Consumption plan is a good fit - as you&rsquo;ll only be billed for the number of times you have used this service. Every stage is a candidate for an Azure function as it can be executed independently. Azure functions can be visualized as building blocks to implement a workflow. Appropriate triggers (Http, Queue) can be used to guide the workflow. This is where <strong>Azure Logic Apps</strong> can be leveraged.</p>
+
+<p>From the cost based angle you might want to compare this implementation with hosting a web site when the number of requests remains the same.</p>
+
+<p><strong>Conclusion</strong>
+Overall I find Azure Function App quite appealing for rapid development. If you need to put together a POC without consuming a lot of resources this alternative seems a good choice.</p>
+
+<p>Azure functions, like everything else on the cloud, is in a very dynamic space. Some of the features go through enhancements quite frequently, so keep that in mind when you refer to any training material. Also make sure you have the latest tools.</p>
+
+<p>The examples I showcased are technically very basic. In case of a production level app there are multiple factors that will dictate the approach.</p>
+
+<p>Hopefully this article has whet your appetite to try it out for yourself.</p>
+
+<p><strong>Note</strong>: For those interested in the UI - I have used a smattering of HTML5, CSS Grid Layout, ES6, Web components and Fetch API - each in various stages of adoption in the browser world.</p>
+
+<p><strong>References:</strong></p>
+
+<p><a href="https://github.com/dhananjay-karkera-spider/theavidreader">Demo Code (with warts and all)</a></p>
+
+<p><a href="https://docs.microsoft.com/en-us/azure/azure-functions/">Azure Function documentation</a></p>
+
+<p><a href="https://docs.microsoft.com/en-us/azure/logic-apps/">Azure Logic Apps</a></p>
+
+<p><a href="https://mva.microsoft.com/en-us/training-courses/using-azure-functions-to-build-nanoservices-16765">Azure Functions Training on Microsoft Virtual Academy</a></p>
+
+      </div>
+    </div>
+  </section>
+  
+
+  <section class="section">
+  <div class="container has-text-centered">
+    <p></p>
+  </div>
+</section>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+</body>
